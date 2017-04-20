@@ -16,12 +16,14 @@ def midway_point(point1, point2, ratio):
 
 def line(point1, point2, penetration_distance, weight=0):
     dis = distance(point1, point2)
-    loop = int(math.floor(dis / penetration_distance))
+    loop = int(math.floor(dis / penetration_distance)) + 1
     points = []
-    for i in range(0, loop):
-        points.append(midway_point(point1, point2, (i * penetration_distance) / dis))
-    for i in range(0, weight):
-        points.extend(list(reversed(points)))
+    if abs(dis) > 0.00000001:
+        for i in range(0, loop):
+            points.append(midway_point(point1, point2, (i * penetration_distance) / dis))
+    points.append(point2)
+    #for i in range(0, weight):
+     #   points.extend(list(reversed(points)))
        # points.extend(list(points))
     return points
 
@@ -30,6 +32,5 @@ def straight_stitch(input_points, penetration_distance, weight=0):
     output_points = []
     for i in range(0, len(input_points)-1):
         output_points.extend(line(input_points[i], input_points[i + 1], penetration_distance, weight))
-
-     output_points.append(input_points[len(input_points)-1])
+    output_points.append(input_points[len(input_points)-1])
     return output_points

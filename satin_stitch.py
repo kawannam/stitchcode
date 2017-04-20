@@ -27,6 +27,7 @@ def satin_line(point1, point2, density, width):
     points.append(line_points[len(line_points)-1])
     return points
 
+
 def satin_corner(point1, point2, point3, penitration_length, width):
     p1 = point2
     p2 = single_satin_stitch(point2, point1, width)
@@ -34,7 +35,10 @@ def satin_corner(point1, point2, point3, penitration_length, width):
     p12 = straight_stitch.distance(p1, p2)
     p13 = straight_stitch.distance(p1, p3)
     p23 = straight_stitch.distance(p2, p3)
-    theta = math.acos((p12**2 + p13 ** 2 - p23**2)/(2*p12*p13))
+    theta = math.acos((p12**2 + p13**2 - p23**2)/(2*p12*p13))
+    cross = (p1.x - p2.x)*(p3.y - p2.y) - (p1.y - p2.y)*(p3.x - p2.x)
+    if (cross > 0 or theta == math.pi):
+        return []
     sub_division = (width*theta)/penitration_length
     partial_angle = (theta/sub_division)
     points = []
@@ -47,7 +51,6 @@ def satin_corner(point1, point2, point3, penitration_length, width):
         points.append(stitchcode.Point(p1.x + magx, p1.y + magy))
         points.append(stitchcode.Point(p1.x, p1.y))
     return points
-
 
 
 def satin_stitch(input_points, penetration_distance, width):

@@ -12,6 +12,7 @@ def get_box(x, y):
     p5 = stitchcode.Point(x,y)
     return [p1, p2, p3, p4, p5]
 
+
 def write_to_file(emb):
     emb.translate_to_origin()
     #emb.scale(1)
@@ -19,7 +20,6 @@ def write_to_file(emb):
     emb.save("Output/LineExample.exp")
     emb.save("Output/LineExample.png")
     emb.save("Output/LineExample.dst")
-
 
 
 if __name__ == "__main__":

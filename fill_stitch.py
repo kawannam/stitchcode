@@ -21,8 +21,8 @@ def find_intersections(points, x, y, slope):
                     intersection_set.append(stitchcode.Point(suggested_point.x, suggested_point.y))
             elif suggested_point != points[i + 1]:
                 intersection_set.append(suggested_point)
-    for i in range(0, len(intersection_set), 2):
-        line_segments.append(LineSegment(intersection_set[i], intersection_set[i + 1]))
+    for n in range(0, len(intersection_set), 2):
+        line_segments.append(LineSegment(intersection_set[n], intersection_set[n + 1]))
     return line_segments
 
 
@@ -45,7 +45,7 @@ def fill_stitch(points, slope, density, penitration_distance):
         line_segs = find_intersections(points, current_x, current_y, slope)
 
         for i in range(0, len(line_segs)):
-            if len(line_segs_sets) < i:
+            if len(line_segs_sets) <= i:
                 line_segs_sets.append([])
             line_segs_sets[i].append(line_segs[i])
 
@@ -100,10 +100,10 @@ def find_starting_point(points, slope):
     if slope == 0:
         return stitchcode.Point(min_x, min_y), stitchcode.Point(min_x, max_y)
     if slope < 0:
-        finish_x = max_x - (slope * (max_y-min_y))
+        finish_x = max_x - ((1/slope) * abs(max_y-min_y))
         return stitchcode.Point(min_x, min_y),stitchcode.Point(finish_x, min_y)
     if slope > 0:
-        start_x = min_x -(slope * (max_y-min_y))
+        start_x = min_x -((1/slope) * abs(max_y-min_y))
         return stitchcode.Point(start_x, min_y), stitchcode.Point(max_x, min_y)
 
 def get_line_direction(a, b):

@@ -29,7 +29,7 @@ if __name__ == "__main__":
         for j in range(0, 8):
             box_points = []
             box = (get_box(j*box_offset, i*box_offset))
-            box_points = fill_stitch(box, 0.25, j+5, (i*5) + 10)
+            box_points = fill_stitch(box, -5000, j+5, (i*5) + 10)
             p1a = stitchcode.Point(box[0].x, box[0].y, True)
             points.append(p1a)
             p1b = stitchcode.Point(box[1].x, box[1].y, True)
@@ -41,7 +41,7 @@ if __name__ == "__main__":
 
         for j in range(0, 8):
             box = get_box(((7*box_offset) - (j * box_offset)), ((i+1) * box_offset))
-            box_points = fill_stitch(box, 0.25, 12 - j, (i*5) + 10)
+            box_points = fill_stitch(box, -5000, 12 - j, (i*5) + 10)
             p1a = stitchcode.Point(box[0].x, box[0].y)
             points.append(p1a)
             p1b = stitchcode.Point(box[1].x, box[1].y)
