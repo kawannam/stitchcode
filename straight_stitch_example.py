@@ -48,4 +48,7 @@ if __name__ == "__main__":
     emb = stitchcode.Embroidery()
     for p in points:
         emb.addStitch(p)
-    write_to_file(emb)
+	write_to_file(emb)
+		
+		
+		

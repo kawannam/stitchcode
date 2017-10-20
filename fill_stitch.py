@@ -26,7 +26,7 @@ def find_intersections(points, x, y, slope):
     return line_segments
 
 
-def fill_stitch(points, slope, density, penitration_distance):
+def fill_stitch(points, slope, penitration_variance, density, penitration_distance):
     # TODO: Error checking - is a 2D shape(x and y have multiple values)
     # TODO: Error checking - hull algorithm to remove overlap?
     line_segs_sets = [[]]

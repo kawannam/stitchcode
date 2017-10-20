@@ -6,7 +6,8 @@ import math
 from satin_stitch import satin_stitch
 
 def write_to_file(emb):
-    emb.translate_to_origin()
+    emb.scale(2)
+    #emb.translate_to_origin()
     emb.save("Output/HRExample.exp")
     emb.save("Output/HRExample.png")
     emb.save("Output/HRExample.dst")
@@ -37,15 +38,15 @@ if __name__ == "__main__":
         for i in range(0, 61):
             angle = (2 * math.pi * i)/60
             points.append(stitchcode.Point(center.x + (math.cos(angle)*j), center.y + (math.sin(angle)*j)))
-    points.extend(straight_stitch([copy(center), top, copy(center), left, copy(center), bottom, copy(center)], 10, 0))
+    points.extend(straight_stitch([copy(center), copy(top), copy(center), copy(left), copy(center), copy(bottom), copy(center)], 10, 0))
 
     data = []
     for i in range(0, len(heart_rate)):
         angle = ((2 * math.pi * i) / 60 - (math.pi/2)) * -1
         data.append(stitchcode.Point(center.x + (math.cos(angle) * heart_rate[i]), center.y + (math.sin(angle) * heart_rate[i])))
     points.extend(satin_stitch(data, 2, 15))
-
-    points.extend(fill_stitch(heart(center, 10), 2, 1, 10))
+    points.append(copy(center))
+    points.extend(fill_stitch(heart(center, 10), 2, 1, 6))
 
     emb = stitchcode.Embroidery()
     for p in points:

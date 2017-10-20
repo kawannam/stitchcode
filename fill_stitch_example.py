@@ -18,9 +18,9 @@ def write_to_file(emb):
     emb.translate_to_origin()
     #emb.scale(1)
     emb.flatten()
-    emb.save("Output/LineExample.exp")
-    emb.save("Output/LineExample.png")
-    emb.save("Output/LineExample.dst")
+    emb.save("Output/FillExample.exp")
+    emb.save("Output/FillExample.png")
+    emb.save("Output/FillExample.dst")
 
 
 if __name__ == "__main__":
@@ -29,26 +29,26 @@ if __name__ == "__main__":
         for j in range(0, 8):
             box_points = []
             box = (get_box(j*box_offset, i*box_offset))
-            box_points = fill_stitch(box, -5000, j+5, (i*5) + 10)
-            p1a = stitchcode.Point(box[0].x, box[0].y, True)
-            points.append(p1a)
-            p1b = stitchcode.Point(box[1].x, box[1].y, True)
-            points.append(p1b)
-            points.extend(box_points)
-            points.append(stitchcode.Point(box[3].x, box[3].y, True))
-        points.append(stitchcode.Point(8 * box_offset - 40, i*box_offset))
-        points.append(stitchcode.Point(8 * box_offset - 40, (i+1) * box_offset))
-
-        for j in range(0, 8):
-            box = get_box(((7*box_offset) - (j * box_offset)), ((i+1) * box_offset))
-            box_points = fill_stitch(box, -5000, 12 - j, (i*5) + 10)
+            box_points = fill_stitch(box, 1, j+3, (i*5) + 10)
             p1a = stitchcode.Point(box[0].x, box[0].y)
             points.append(p1a)
             p1b = stitchcode.Point(box[1].x, box[1].y)
             points.append(p1b)
             points.extend(box_points)
-            points.append(stitchcode.Point(box[3].x, box[3].y, True))
-            points.append(stitchcode.Point(box[0].x, box[0].y, True))
+            points.append(stitchcode.Point(box[3].x, box[3].y))
+        points.append(stitchcode.Point(8 * box_offset - 40, i*box_offset))
+        points.append(stitchcode.Point(8 * box_offset - 40, (i+1) * box_offset))
+
+        for j in range(0, 8):
+            box = get_box(((7*box_offset) - (j * box_offset)), ((i+1) * box_offset))
+            box_points = fill_stitch(box, 1, 10 - j, (i*5) + 10)
+            p1a = stitchcode.Point(box[0].x, box[0].y)
+            points.append(p1a)
+            p1b = stitchcode.Point(box[1].x, box[1].y)
+            points.append(p1b)
+            points.extend(box_points)
+            points.append(stitchcode.Point(box[3].x, box[3].y))
+            points.append(stitchcode.Point(box[0].x, box[0].y))
 
     emb = stitchcode.Embroidery()
     for p in points:

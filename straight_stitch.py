@@ -13,6 +13,8 @@ def midway_point(point1, point2, ratio):
         point3.y = (ratio * (point2.y - point1.y)) + point1.y
     return point3
 
+def copy(p):
+    return stitchcode.Point(p.x, p.y)
 
 def line(point1, point2, penetration_distance, weight=0):
     dis = distance(point1, point2)
@@ -20,8 +22,8 @@ def line(point1, point2, penetration_distance, weight=0):
     points = []
     if abs(dis) > 0.00000001:
         for i in range(0, loop):
-            points.append(midway_point(point1, point2, (i * penetration_distance) / dis))
-    points.append(point2)
+            points.append(midway_point(copy(point1), copy(point2), (i * penetration_distance) / dis))
+    points.append(copy(point2))
     #for i in range(0, weight):
      #   points.extend(list(reversed(points)))
        # points.extend(list(points))

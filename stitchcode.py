@@ -92,6 +92,14 @@ class Embroidery:
 
     def addStitch(self, coord):
         self.coords.append(coord)
+		
+	def changeColorEXP1(self):
+	    self.coords.append(chr(0x80))
+        self.coords.append(chr(0x01))
+
+	def changeColorEXP2(self):
+	    self.coords.append(chr(0x80))
+	    self.coords.append(chr(0x02))
 
     def getSize(self):
         (self.maxx, self.maxy) = (self.coords[0].x, self.coords[0].y)
@@ -519,7 +527,7 @@ class Embroidery:
         dbg.write("reading EXP: loaded from file: %s\n" % (filename))
         dbg.write("reading EXP: number of stitches: %d\n" % len(self.coords))
         self.translate_to_origin()
-
+		
     ############################################
     #### TAJIMA / DST
     ############################################
