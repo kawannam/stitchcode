@@ -92,14 +92,14 @@ class Embroidery:
 
     def addStitch(self, coord):
         self.coords.append(coord)
-		
-	def changeColorEXP1(self):
-	    self.coords.append(chr(0x80))
+
+    def changeColorEXP1(self):
+        self.coords.append(chr(0x80))
         self.coords.append(chr(0x01))
 
-	def changeColorEXP2(self):
-	    self.coords.append(chr(0x80))
-	    self.coords.append(chr(0x02))
+    def changeColorEXP2(self):
+        self.coords.append(chr(0x80))
+        self.coords.append(chr(0x02))
 
     def getSize(self):
         (self.maxx, self.maxy) = (self.coords[0].x, self.coords[0].y)
@@ -124,15 +124,17 @@ class Embroidery:
         if (len(self.coords) == 0):
             return
         for p in self.coords:
-            self.minx = min(self.minx, p.x)
-            self.miny = min(self.miny, p.y)
-            self.maxx = max(self.maxx, p.x)
-            self.maxy = max(self.maxy, p.y)
+            if isinstance(p, Point):
+                self.minx = min(self.minx, p.x)
+                self.miny = min(self.miny, p.y)
+                self.maxx = max(self.maxx, p.x)
+                self.maxy = max(self.maxy, p.y)
         sx = self.maxx - self.minx
         sy = self.maxy - self.miny
         for p in self.coords:
-            p.x -= self.minx
-            p.y -= self.miny
+            if isinstance(p, Point):
+                p.x -= self.minx
+                p.y -= self.miny
         dbg.write("translated to origin. resulting field size: %0.2fmm x %0.2fmm\n" % (sx / 10, sy / 10))
 
     def scale(self, factor):
@@ -283,21 +285,24 @@ class Embroidery:
         new_coords = []
         new_coords.append(self.coords[0])
         for stitch in self.coords[1:]:
-            new_stitch = stitch.as_int()
-            last_stitch = self.pos.as_int()
-            delta = new_stitch - last_stitch
-            if delta.length:
-                # do several interpolated steps if too long
-                dmax = max(abs(delta.x), abs(delta.y))
-                dsteps = abs(dmax / max_length) + 1
-                if dmax > max_length and not stitch.jump:
-                    for i in range(0, dsteps):
-                        x = last_stitch.x + (i + 1) * delta.x / dsteps
-                        y = last_stitch.y + (i + 1) * delta.y / dsteps
-                        new_coords.append(Point(x, y))
-                else:
-                    new_coords.append(stitch)
-                self.pos = stitch
+            if isinstance(stitch, Point):
+                new_stitch = stitch.as_int()
+                last_stitch = self.pos.as_int()
+                delta = new_stitch - last_stitch
+                if delta.length:
+                    # do several interpolated steps if too long
+                    dmax = max(abs(delta.x), abs(delta.y))
+                    dsteps = abs(dmax / max_length) + 1
+                    if dmax > max_length and not stitch.jump:
+                        for i in range(0, dsteps):
+                            x = last_stitch.x + (i + 1) * delta.x / dsteps
+                            y = last_stitch.y + (i + 1) * delta.y / dsteps
+                            new_coords.append(Point(x, y))
+                    else:
+                        new_coords.append(stitch)
+                    self.pos = stitch
+            else:
+                new_coords.append(stitch)
         self.coords = new_coords
         dbg.write("flatten END - stitch count: %d\n" % len(self.coords))
 
@@ -442,45 +447,47 @@ class Embroidery:
         dbg.write("export - stitch count: %d\n" % len(self.coords))
 
         for stitch in self.coords[0:]:
-            new_int = stitch.as_int()
-            old_int = self.pos.as_int()
-            delta = new_int - old_int
+            if isinstance(stitch, Point):
+                new_int = stitch.as_int()
+                old_int = self.pos.as_int()
+                delta = new_int - old_int
 
-            def move(x, y):
-                if (x < 0): x = x + 256
-                self.string += chr(x)
-                if (y < 0): y = y + 256
-                self.string += chr(y)
+                def move(x, y):
+                    if (x < 0): x = x + 256
+                    self.string += chr(x)
+                    if (y < 0): y = y + 256
+                    self.string += chr(y)
 
-            # do several interpolated steps if too long
-            # dbg.write("delta: %d, %d\n" % (delta.x,delta.y))
-            sum_x = 0
-            sum_y = 0
-            dmax = max(abs(delta.x), abs(delta.y))
-            dsteps = abs(dmax / 127) + 1
-            if dsteps == 1:
-                if stitch.jump:
-                    self.string += chr(0x80)
-                    self.string += chr(0x04)
-                # dbg.write("move: %d, %d\n" % (delta.x, delta.y))
-                move(delta.x, delta.y)
-            else:
-                for i in range(0, dsteps):
+                # do several interpolated steps if too long
+                # dbg.write("delta: %d, %d\n" % (delta.x,delta.y))
+                sum_x = 0
+                sum_y = 0
+                dmax = max(abs(delta.x), abs(delta.y))
+                dsteps = abs(dmax / 127) + 1
+                if dsteps == 1:
                     if stitch.jump:
                         self.string += chr(0x80)
                         self.string += chr(0x04)
-                    if i < dsteps - 1:
-                        # dbg.write("move: %d, %d\n" % (delta.x/dsteps, delta.y/dsteps))
-                        move(delta.x / dsteps, delta.y / dsteps)
-                        sum_x += delta.x / dsteps
-                        sum_y += delta.y / dsteps
-                    else:
-                        # dbg.write("move: %d, %d\n" % (delta.x - sum_x, delta.y - sum_y))
-                        move(delta.x - sum_x, delta.y - sum_y)
+                    # dbg.write("move: %d, %d\n" % (delta.x, delta.y))
+                    move(delta.x, delta.y)
+                else:
+                    for i in range(0, dsteps):
+                        if stitch.jump:
+                            self.string += chr(0x80)
+                            self.string += chr(0x04)
+                        if i < dsteps - 1:
+                            # dbg.write("move: %d, %d\n" % (delta.x/dsteps, delta.y/dsteps))
+                            move(delta.x / dsteps, delta.y / dsteps)
+                            sum_x += delta.x / dsteps
+                            sum_y += delta.y / dsteps
+                        else:
+                            # dbg.write("move: %d, %d\n" % (delta.x - sum_x, delta.y - sum_y))
+                            move(delta.x - sum_x, delta.y - sum_y)
 
-            self.pos = stitch
-            # dbg.write("sum: %d, %d\n" % (sum_x,sum_y))
-
+                self.pos = stitch
+                # dbg.write("sum: %d, %d\n" % (sum_x,sum_y))
+            else:
+                self.string += stitch
         return self.string
 
     def import_melco(self, filename):
@@ -1077,10 +1084,11 @@ class Embroidery:
         (self.maxx, self.maxy) = (self.coords[0].x, self.coords[0].y)
         (self.minx, self.miny) = (self.coords[0].x, self.coords[0].y)
         for p in self.coords:
-            self.minx = min(self.minx, p.x)
-            self.miny = min(self.miny, p.y)
-            self.maxx = max(self.maxx, p.x)
-            self.maxy = max(self.maxy, p.y)
+            if isinstance(p, Point):
+                self.minx = min(self.minx, p.x)
+                self.miny = min(self.miny, p.y)
+                self.maxx = max(self.maxx, p.x)
+                self.maxy = max(self.maxy, p.y)
 
         sx = int(self.maxx - self.minx + 2 * border)
         sy = int(self.maxy - self.miny + 2 * border)
@@ -1104,27 +1112,33 @@ class Embroidery:
             mark_point(last)
 
         for stitch in self.coords[0:]:
+            if isinstance(stitch, Point):
+                if stitch.jump:
+                    line_color = (255, 0, 0, 0)
+                    stitch_color = (0, 0, 255, 0)
+                elif last.color is not stitch.color:
+                    line_color = (255, 0, 255, 0)
+                    stitch_color = (255, 0, 255, 0)
+                else:
+                    line_color = (0, 0, 0, 0)
+                    stitch_color = (0, 0, 255, 0)
 
-            if stitch.jump:
-                line_color = (255, 0, 0, 0)
-                stitch_color = (0, 0, 255, 0)
+                p = stitch.as_int()
+                draw.line(
+                    (last.x + border, self.maxy - last.y + border,
+                     p.x + border, self.maxy - p.y + border),
+                    fill=line_color)
+
+                if (mark_stitch and not stitch.jump):
+                    mark_point(p)
+
+                if (mark_stitch and not stitch.jump and last.jump):
+                    mark_point(last)
+
+                last = p
             else:
-                line_color = (0, 0, 0, 0)
-                stitch_color = (0, 0, 255, 0)
-
-            p = stitch.as_int()
-            draw.line(
-                (last.x + border, self.maxy - last.y + border,
-                 p.x + border, self.maxy - p.y + border),
-                fill=line_color)
-
-            if (mark_stitch and not stitch.jump):
-                mark_point(p)
-
-            if (mark_stitch and not stitch.jump and last.jump):
-                mark_point(last)
-
-            last = p
+                line_color = (255, 0, 255, 0)
+                stitch_color = (255, 0, 255, 0)
         img.save(filename, "PNG")
         dbg.write("saving image to file: %s\n" % (filename))
 
