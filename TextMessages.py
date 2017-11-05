@@ -5,6 +5,10 @@ from straight_stitch import line
 from straight_stitch import copy
 
 class Vis:
+    middle = 2000
+    spacing = 30
+    character_height = 20
+
     def __init__(self):
         self.type = []
         self.length = []
@@ -34,19 +38,23 @@ class Vis:
     def draw_section(self, base1, base2, new_points):
         line1 = []
         line2 = []
-
-        line1.append(stitchcode.Point(2000, 0, False))
-        line2.append(stitchcode.Point(2000, 0, False))
         for i in range(0, len(self.messages)):
             if self.type[i] == 'in':
-                line1.append(stitchcode.Point(2000 - (new_points[i] * 10) - base1[i].x, i * 10, False))
-                line2.append(stitchcode.Point(line2[i - 1].x, i * 10, False))
+                line1.append(stitchcode.Point(base1[i].x - (new_points[i] * self.character_height), i * self.spacing, False))
+                if i-1 >= 0:
+                    line2.append(stitchcode.Point(line2[i-1].x, i * self.spacing, False))
+                else:
+                    line2.append(stitchcode.Point(base2[i].x, i * self.spacing, False))
             else:
-                line2.append(stitchcode.Point(2000 + (new_points[i] * 10) + base2[i].x, i * 10, False))
-                line1.append(stitchcode.Point(line1[i - 1].x, i * 10, False))
+                line2.append(stitchcode.Point(base2[i].x + (new_points[i] * self.character_height), i * self.spacing, False))
+                if i-1 >= 0:
+                    line1.append(stitchcode.Point(line1[i-1].x, i * self.spacing, False))
+                else:
+                    line1.append(stitchcode.Point(base1[i ].x, i * self.spacing, False))
         return line1, line2
 
     def generate(self):
+        graph = []
         center = []
         for i in range(0, len(self.messages)):
             center.append(stitchcode.Point(2000, i*10, False))
@@ -56,29 +64,28 @@ class Vis:
         joy1, joy2 = self.draw_section(fear1, fear2, self.joy)
         sadness1, sadness2 = self.draw_section(joy1, joy2, self.sadness)
 
-        center.reverse()
-        points.extend(center)
+        graph.extend(center)
 
-        anger2.reverse()
-        points.extend(anger1)
-        points.extend(anger2)
+        anger1.reverse()
+        graph.extend(anger1)
+        graph.extend(anger2)
 
-        disgust2.reverse()
-        points.extend(disgust1)
-        points.extend(disgust2)
+        disgust1.reverse()
+        graph.extend(disgust1)
+        graph.extend(disgust2)
 
-        fear2.reverse()
-        points.extend(fear1)
-        points.extend(fear2)
+        fear1.reverse()
+        graph.extend(fear1)
+        graph.extend(fear2)
 
-        joy2.reverse()
-        points.extend(joy1)
-        points.extend(joy2)
+        joy1.reverse()
+        graph.extend(joy1)
+        graph.extend(joy2)
 
-        sadness2.reverse()
-        points.extend(sadness1)
-        points.extend(sadness2)
-        return points
+        sadness1.reverse()
+        graph.extend(sadness1)
+        graph.extend(sadness2)
+        return graph
 
 
 def write_to_file(emb):
@@ -96,9 +103,5 @@ if __name__ == "__main__":
     emb = stitchcode.Embroidery()
     for p in points:
         emb.addStitch(p)
-    emb.changeColorEXP1()
-    points.reverse()
-    for p in points:
-        emb.addStitch(stitchcode.Point(20, p.y, False))
 
     write_to_file(emb)

@@ -15,9 +15,11 @@ if __name__ == "__main__":
     points = line(stitchcode.Point(0, 0, True), stitchcode.Point(0, 500, True), 20)
     emb = stitchcode.Embroidery()
     print("HERE")
+    i = 0
     for p in points:
+        p.color = i
         emb.addStitch(p)
-    emb.changeColorEXP2()
+        i = i+1
     points.reverse()
     i = 0;
     for p in points:
