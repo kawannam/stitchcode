@@ -72,6 +72,9 @@ class Point:
     def __cmp__(self, other):
         return cmp(self.as_tuple(), other.as_tuple())
 
+    def __hash__(self):
+        return int(self.x*5 + self.y*13)
+
 
 
 ############################################

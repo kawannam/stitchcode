@@ -35,7 +35,18 @@ def blah (p1, p2, width):
     m = (dist + width)/dist
     return stitchcode.Point(p1.x + z*m, p1.y + w*m)
 
+MIN_DISTANCE = 1
+
+def are_points_too_close(point1, point2):
+    if abs(point1.x - point2.x) < MIN_DISTANCE and abs(point1.y - point2.y) < MIN_DISTANCE:
+        return True
+    return False
+
 def satin_corner(point1, point2, point3, penitration_length, width):
+    if (are_points_too_close(point1, point2) or
+        are_points_too_close(point2, point3) or
+            are_points_too_close(point1, point3)):
+                return
     p1 = point2
     p2 = single_satin_stitch(point2, blah(point1, point2, width), width)
     p3 = single_satin_stitch(point2, point3, width)
@@ -53,6 +64,8 @@ def satin_corner(point1, point2, point3, penitration_length, width):
     if (cross > 0 or (abs(theta - math.pi) < 0.001)):
         return []
     sub_division = (width*theta)/penitration_length
+    if sub_division == 0:
+        return
     partial_angle = (theta/sub_division)
     points = []
     sub_division = int(math.ceil(sub_division))
@@ -69,10 +82,14 @@ def satin_corner(point1, point2, point3, penitration_length, width):
 def satin_stitch(input_points, penetration_distance, width):
     output_points = []
     for i in range(0, len(input_points) - 1):
-        output_points.extend(satin_line(input_points[i], input_points[i + 1], penetration_distance, width))
-        if i < len(input_points)-2:
-            output_points.extend(satin_corner(input_points[i], input_points[i+1],  input_points[i + 2], penetration_distance, width))
-    if input_points[0] == input_points[len(input_points) - 1]:
-        output_points.extend(
-            satin_corner(input_points[len(input_points) - 2], input_points[0], input_points[1], penetration_distance, width))
+        if not(are_points_too_close(input_points[i], input_points[i+1])):
+            output_points.extend(satin_line(input_points[i], input_points[i + 1], penetration_distance, width))
+            if i < len(input_points)-2:
+                corner = satin_corner(input_points[i], input_points[i+1],  input_points[i + 2], penetration_distance, width)
+                if corner == None > 0:
+                    output_points.extend(corner)
+    if input_points[0] == input_points[len(input_points) - 1] and len(input_points) >= 3:
+        corner = satin_corner(input_points[len(input_points) - 2], input_points[0], input_points[1], penetration_distance, width)
+        if corner == None > 0:
+            output_points.extend(corner)
     return output_points
