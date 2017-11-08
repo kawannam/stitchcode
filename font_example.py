@@ -37,7 +37,7 @@ def satin_stitch_char(character, size, x_offset, y_offset, font):
     letter = []
     for co in coord:
         co.reverse()
-        letter.extend(satin_stitch.satin_stitch(co, 5, 10))
+        letter.extend(satin_stitch.satin_stitch(co, 8, 8))
     return letter
 
 def fill_stitch_char(character, size, x_offset, y_offset, font):
@@ -54,9 +54,14 @@ def satin_stitch_string(message, size, x_offset, y_offset, font):
     char_list = list(message)
     i = 0
     points = []
+    taken = 0
     for character in char_list:
-        points.extend(satin_stitch_char(character, size, x_offset +(90 *i), y_offset, font))
-        i = i+1
+        points.extend(satin_stitch_char(character, size, x_offset + taken, y_offset, font))
+        try:
+            taken = taken + (glyphquery.width(font, character)/size)
+        except:
+            taken = taken + 50
+
     return points
 
 
@@ -84,7 +89,7 @@ if __name__ == "__main__":
     points = []
     font_file = "open-sans/OpenSans-Light.ttf"
     font = ttx.TTFont(font_file)
-    points = satin_stitch_string("I love you", 15, 0, 0, font)
+    points = satin_stitch_string("I love you", 30, 0, 0, font)
     emb = stitchcode.Embroidery()
     for p in points:
         emb.addStitch(p)

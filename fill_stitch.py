@@ -2,73 +2,33 @@ from __future__ import division
 import stitchcode
 from LineSegment import LineSegment
 import straight_stitch
-import satin_stitch
 
 
 def find_intersections(points, x, y, slope):
     intersection_set = []
     line_segments = []
     for i in range(0, len(points) - 1):
-        #Find where the given line segment and fill line intersect
         suggested_point = intersection(LineSegment(points[i], points[i + 1]), stitchcode.Point(x, y), slope)
-        #If they intersect
         if suggested_point is not None:
-            #If they intersect at an edge of a line segment
-           ''' if suggested_point == points[i]:
+            if suggested_point == points[i]:
                 index = get_surrounding_point_indexes(points, i)
-                blah = intersection(LineSegment(points[index[0]], points[index[1]]), stitchcode.Point(x, y), slope)
+                blah = intersection(LineSegment(points[index[0]], points[index[1]]),
+                                         stitchcode.Point(x, y), slope)
                 if blah is not None:
                     intersection_set.append(suggested_point)
                 else:
                     intersection_set.append(suggested_point)
-                    intersection_set.append(straight_stitch.copy(suggested_point))'''
-           if suggested_point != points[i + 1]:
+                    intersection_set.append(stitchcode.Point(suggested_point.x, suggested_point.y))
+            elif suggested_point != points[i + 1]:
                 intersection_set.append(suggested_point)
-    while len(intersection_set) > 1:
-        p1, p2 = find_closest_points(intersection_set)
-        point1 = intersection_set[p1]
-        point2 = intersection_set[p2]
-        if (point2.y - point1.y != 0):
-            if(abs(abs(((point2.x - point1.x) / (point2.y - point1.y)) - abs(slope))) > 0.01):
-                print "???????"
-            line_segments.append(LineSegment(intersection_set[p1], intersection_set[p2]))
-        if point1.y is point2.y and point1.x is not point2.x:
-            print"?"
-            #    line_segments.append(LineSegment(intersection_set[p2], intersection_set[p1]))
-        intersection_set.pop(p2)
-        intersection_set.pop(p1)
-
-    #if len(intersection_set) is 1:
-    #    line_segments.append(LineSegment(intersection_set[0], straight_stitch.copy(intersection_set[0])))
-
+    for n in range(0, len(intersection_set)-1, 2):
+        line_segments.append(LineSegment(intersection_set[n], intersection_set[n + 1]))
     return line_segments
 
-
-def find_closest_points(points):
-    p1 = 0
-    p2 = 1
-    close_dist = straight_stitch.distance(points[0], points[1])
-    for i in range(0, len(points)-1):
-        for j in range(i+1, len(points)):
-            if p1 is p2:
-                return p1, p2
-            dist = straight_stitch.distance(points[i], points[j])
-            if close_dist > dist:
-                close_dist = dist
-                p1 = i
-                p2 = j
-    return p1, p2
 
 def fill_stitch(points, slope, penitration_variance, density, penitration_distance):
     # TODO: Error checking - is a 2D shape(x and y have multiple values)
     # TODO: Error checking - hull algorithm to remove overlap?
-    temp = []
-    for i in range(0, len(points)-1):
-        temp.append(points[i])
-        while (i < len(points)-1 and satin_stitch.are_points_too_close(points[i], points[i+1])):
-            i = i + 1
-
-    points = temp
     line_segs_sets = [[]]
     start_point, finish_point = find_starting_point(points, slope)
     if slope == 0:
@@ -79,7 +39,7 @@ def fill_stitch(points, slope, penitration_variance, density, penitration_distan
         finish = finish_point.x
 
     current_y = start_point.y
-    current_x = start_point.x
+    current_x = start_point.x - 1000
 
     while current < finish:
         line_segs = find_intersections(points, current_x, current_y, slope)
@@ -117,7 +77,6 @@ def get_surrounding_point_indexes(points, i):
     before = i - 1
     after = i + 1
     if before < 0:
-        #The last element is the same as the first, move two back
         before = len(points) - 2
     if after > len(points) - 1:
         after = 0

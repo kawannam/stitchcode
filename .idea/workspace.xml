@@ -7,13 +7,13 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Output/FillExample.png" afterPath="$PROJECT_DIR$/Output/FillExample.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Output/messages.exp" afterPath="$PROJECT_DIR$/Output/messages.exp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Output/messages.png" afterPath="$PROJECT_DIR$/Output/messages.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Output/words.exp" afterPath="$PROJECT_DIR$/Output/words.exp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Output/words.png" afterPath="$PROJECT_DIR$/Output/words.png" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SampleData.csv" afterPath="$PROJECT_DIR$/SampleData.csv" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/TextMessages.py" afterPath="$PROJECT_DIR$/TextMessages.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fill_stitch.py" afterPath="$PROJECT_DIR$/fill_stitch.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/fill_stitch_example.py" afterPath="$PROJECT_DIR$/fill_stitch_example.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/font_example.py" afterPath="$PROJECT_DIR$/font_example.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/satin_stitch.py" afterPath="$PROJECT_DIR$/satin_stitch.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stitchcode.py" afterPath="$PROJECT_DIR$/stitchcode.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,8 +30,8 @@
       <file leaf-file-name="fill_stitch.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/fill_stitch.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="97">
-              <caret line="100" column="30" lean-forward="true" selection-start-line="100" selection-start-column="30" selection-end-line="100" selection-end-column="30" />
+            <state relative-caret-position="101">
+              <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
               </folding>
@@ -62,8 +62,8 @@
       <file leaf-file-name="TextMessages.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/TextMessages.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="92" column="0" lean-forward="true" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+            <state relative-caret-position="187">
+              <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
               <folding>
                 <element signature="e#0#17#0" expanded="true" />
               </folding>
@@ -74,11 +74,21 @@
       <file leaf-file-name="font_example.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/font_example.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="187">
-              <caret line="59" column="17" lean-forward="true" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
+            <state relative-caret-position="238">
+              <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
               <folding>
                 <element signature="e#0#25#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="glyphquery.py" pinned="false" current-in-tab="false">
+        <entry file="file://C:/Python27/Lib/site-packages/ttfquery/glyphquery.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="234">
+              <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -142,7 +152,6 @@
       <find>flatten</find>
       <find>mm</find>
       <find>PES</find>
-      <find>line</find>
       <find>fla</find>
       <find>hr</find>
       <find>z1</find>
@@ -161,13 +170,14 @@
       <find>point</find>
       <find>get_surrounding_point_indexes</find>
       <find>self.spacingxxx</find>
-      <find>fill_stitch</find>
       <find>satin_corner</find>
-      <find>ma</find>
       <find>Point</find>
       <find>Ma</find>
       <find>character_height</find>
       <find>find_intersections</find>
+      <find>fill_stitch</find>
+      <find>line</find>
+      <find>ma</find>
     </findStrings>
     <replaceStrings>
       <replace>self.line_segs</replace>
@@ -200,15 +210,15 @@
         <option value="$PROJECT_DIR$/stitchcode.py" />
         <option value="$PROJECT_DIR$/fill_stitch_example.py" />
         <option value="$PROJECT_DIR$/satin_stitch.py" />
-        <option value="$PROJECT_DIR$/font_example.py" />
         <option value="$PROJECT_DIR$/fill_stitch.py" />
+        <option value="$PROJECT_DIR$/font_example.py" />
         <option value="$PROJECT_DIR$/TextMessages.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-304" />
-    <option name="y" value="-11" />
+    <option name="x" value="220" />
+    <option name="y" value="-19" />
     <option name="width" value="1382" />
     <option name="height" value="744" />
   </component>
@@ -488,8 +498,8 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Python.TextMessages" />
-        <item index="1" class="java.lang.String" itemvalue="Python.fill_stitch_example" />
-        <item index="2" class="java.lang.String" itemvalue="Python.font_example" />
+        <item index="1" class="java.lang.String" itemvalue="Python.font_example" />
+        <item index="2" class="java.lang.String" itemvalue="Python.fill_stitch_example" />
         <item index="3" class="java.lang.String" itemvalue="Python.color_change_example" />
         <item index="4" class="java.lang.String" itemvalue="Python.stitchcode" />
       </list>
@@ -531,15 +541,15 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25549048" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329653" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32018927" sideWeight="0.5058565" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3296355" sideWeight="0.51317716" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3296355" sideWeight="0.49707174" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3296355" sideWeight="0.48682284" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35023773" sideWeight="0.4941435" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35023773" sideWeight="0.6961933" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -572,14 +582,9 @@
           <option name="timeStamp" value="113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/fill_stitch.py</url>
-          <line>41</line>
-          <option name="timeStamp" value="115" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/fill_stitch.py</url>
-          <line>100</line>
-          <option name="timeStamp" value="119" />
+          <url>file://$PROJECT_DIR$/TextMessages.py</url>
+          <line>38</line>
+          <option name="timeStamp" value="124" />
         </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
@@ -592,13 +597,14 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="120" />
+      <option name="time" value="125" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="PythonConfigurationType">
         <watch expression="self.coords" />
         <watch expression="contours" />
         <watch expression="line_segments" />
+        <watch expression="self" />
       </configuration>
     </watches-manager>
   </component>
@@ -928,14 +934,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://C:/Python27/Lib/site-packages/ttfquery/glyphquery.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -957,14 +955,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/fill_stitch_example.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="43" column="47" lean-forward="false" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/satin_stitch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="80">
@@ -975,28 +965,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/font_example.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="59" column="17" lean-forward="true" selection-start-line="59" selection-start-column="17" selection-end-line="59" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#25#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stitchcode.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="101">
           <caret line="45" column="0" lean-forward="false" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/LineSegment.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1018,18 +990,52 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/fill_stitch.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="97">
-          <caret line="100" column="30" lean-forward="true" selection-start-line="100" selection-start-column="30" selection-end-line="100" selection-end-column="30" />
+        <state relative-caret-position="101">
+          <caret line="60" column="0" lean-forward="false" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://C:/Python27/Lib/site-packages/ttfquery/glyphquery.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/fill_stitch_example.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="714">
+          <caret line="43" column="47" lean-forward="false" selection-start-line="43" selection-start-column="47" selection-end-line="43" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/font_example.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="98" column="0" lean-forward="true" selection-start-line="98" selection-start-column="0" selection-end-line="98" selection-end-column="0" />
+          <folding>
+            <element signature="e#0#25#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LineSegment.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/TextMessages.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="92" column="0" lean-forward="true" selection-start-line="92" selection-start-column="0" selection-end-line="92" selection-end-column="0" />
+        <state relative-caret-position="187">
+          <caret line="11" column="20" lean-forward="true" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
           <folding>
             <element signature="e#0#17#0" expanded="true" />
           </folding>
