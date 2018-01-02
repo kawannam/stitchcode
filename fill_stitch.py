@@ -8,22 +8,42 @@ def find_intersections(points, x, y, slope):
     intersection_set = []
     line_segments = []
     for i in range(0, len(points) - 1):
+        if points[i].jump:
+            continue
         suggested_point = intersection(LineSegment(points[i], points[i + 1]), stitchcode.Point(x, y), slope)
         if suggested_point is not None:
             if suggested_point == points[i]:
                 index = get_surrounding_point_indexes(points, i)
-                blah = intersection(LineSegment(points[index[0]], points[index[1]]),
-                                         stitchcode.Point(x, y), slope)
-                if blah is not None:
+                is_significant_corner = intersection(LineSegment(points[index[0]], points[index[1]]), stitchcode.Point(x, y), slope)
+                if is_significant_corner is not None:
                     intersection_set.append(suggested_point)
                 else:
                     intersection_set.append(suggested_point)
                     intersection_set.append(stitchcode.Point(suggested_point.x, suggested_point.y))
             elif suggested_point != points[i + 1]:
                 intersection_set.append(suggested_point)
-    for n in range(0, len(intersection_set)-1, 2):
-        line_segments.append(LineSegment(intersection_set[n], intersection_set[n + 1]))
+    #for n in range(0, len(intersection_set)-1, 2):
+    #    line_segments.append(LineSegment(intersection_set[n], intersection_set[n + 1]))
+    while len(intersection_set) > 0:
+        p1 = find_closest_points(intersection_set)
+        line_segments.append(LineSegment(intersection_set[0], straight_stitch.copy(intersection_set[p1])))
+        if (p1 != 0):
+            intersection_set.pop(p1)
+        intersection_set.pop(0)
     return line_segments
+
+def find_closest_points(points):
+    p2 = 1
+    if len(points) == 1:
+        return 0
+    close_dist = straight_stitch.distance(points[0], points[1])
+    for j in range(1, len(points)):
+        if 0 is not p2:
+            dist = straight_stitch.distance(points[0], points[j])
+            if close_dist > dist:
+                close_dist = dist
+                p2 = j
+    return p2
 
 
 def fill_stitch(points, slope, penitration_variance, density, penitration_distance):
@@ -44,10 +64,19 @@ def fill_stitch(points, slope, penitration_variance, density, penitration_distan
     while current < finish:
         line_segs = find_intersections(points, current_x, current_y, slope)
 
-        for i in range(0, len(line_segs)):
-            if len(line_segs_sets) <= i:
+        for line in line_segs:
+            found = False
+            for seg_set in line_segs_sets:
+                if len(seg_set) is not 0:
+                    if is_along(seg_set[-1], line.p1, density+15) or is_along(seg_set[-1], line.p2, density+15):
+                    #if is_along(seg_set[-1], line.p1, density + 15):
+                        seg_set.append(line)
+                        found = True
+                        break
+            if not found:
                 line_segs_sets.append([])
-            line_segs_sets[i].append(line_segs[i])
+                line_segs_sets[-1].append(line)
+
 
         if slope == 0:
             current_y += density
@@ -56,7 +85,8 @@ def fill_stitch(points, slope, penitration_variance, density, penitration_distan
             current_x += density
             current = current_x
 
-    points = []
+    answer = []
+    temp = []
     top = True
     for set in line_segs_sets:
         for line in set:
@@ -68,9 +98,53 @@ def fill_stitch(points, slope, penitration_variance, density, penitration_distan
                 p1 = line.p2
                 p2 = line.p1
                 top = True
-            points.extend(straight_stitch.line(p1, p2, penitration_distance))
-        #points[len(points)-1].jump = True
-    return points
+            answer.extend(straight_stitch.line(p1, p2, penitration_distance))
+        if len(answer) is not 0:
+            answer[-1].jump = True
+            if len(temp) is not 0:
+                connection_line = connect(points, temp[-1][-1], answer[0])
+                if len(connection_line) is not 0:
+                    temp.append(connection_line)
+            temp.append(answer)
+            answer = []
+    fill_points = []
+    for item in temp:
+        fill_points.extend(item)
+    return fill_points
+
+def connect(points, start, stop):
+    path = []
+    found_start = False
+    found_stop = False
+    found_start_first =False
+    count = 0
+    while count < (len(points)*2):
+        i = count % (len(points)-1)
+        if is_along(LineSegment(points[i], points[i+1]), start, 1):
+            found_start = True
+            if not found_stop:
+                found_start_first = True
+        if is_along(LineSegment(points[i], points[i+1]), stop, 1):
+            found_stop = True
+        if found_start or found_stop:
+            path.append(straight_stitch.copy(points[i]))
+        if found_start and found_stop:
+            break
+        count = count + 1
+    if not found_start_first:
+        path.reverse()
+    if found_start and found_stop:
+        return path
+    return []
+
+
+def is_along(line_seg, point, tolerance):
+    ab = straight_stitch.distance(line_seg.p1, line_seg.p2)
+    ap = straight_stitch.distance(line_seg.p1, point)
+    pb = straight_stitch.distance(line_seg.p2, point)
+    if abs(ap + pb - ab) < tolerance:
+        return True
+    return False
 
 
 def get_surrounding_point_indexes(points, i):
